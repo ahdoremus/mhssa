@@ -8,11 +8,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
             integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
     <script src="standings-component.js"></script>
-    <!--<link href="style.css" rel="stylesheet" />-->
+    <link href="standings-component.css" rel="stylesheet"/>
     <!-- page header end -->
 
 </head>
@@ -21,83 +28,91 @@
 <!-- Standings Component -->
 <div id="st-standings-component" class="container">
 
-    <!-- Gender Nav -->
-    <div id="st-gender" class="st-nav">
-        <ul>
-            <li id="st-boys">Boys</li>
-            <li id="st-girls">Girls</li>
-        </ul>
-    </div>
+    <!-- Nav -->
+    <div class="st-nav row justify-content-between">
 
-    <div class="row">
-        <!-- Age Nav -->
-        <div id="st-age" class="st-nav col-lg-2 col-md-2 col-sm-12 col-xs-12">
-            <ul>
-                <li id="st-varsity">Varsity</li>
-                <li id="st-jv">Jr. Varsity</li>
-                <li id="st-jh">Jr. High</li>
-                <li id="st-elementary">Elementary</li>
-                <li id="st-12U">12 & Under</li>
+        <!-- Gender Nav -->
+        <div id="st-gender" class="col-xs-auto">
+            <ul class="list-inline">
+                <li class="list-inline-item" id="st-boys">Boys</li>
+                <li class="list-inline-item" id="st-girls">Girls</li>
             </ul>
         </div>
 
-        <!-- Standings -->
-        <div id="st-standings-container" class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+        <!-- Age Nav -->
+        <div id="st-age" class="col-xs-auto">
+            <ul class="list-inline">
+                <li class="list-inline-item" id="st-varsity"><span class="st-long-text">Varsity</span><span class="st-short-text">VAR</span></li>
+                <li class="list-inline-item" id="st-jv"><span class="st-long-text">Jr. Varsity</span><span class="st-short-text">JV</span></li>
+                <li class="list-inline-item" id="st-jh"><span class="st-long-text">Jr. High</span><span class="st-short-text">JH</span></li>
+                <li class="list-inline-item" id="st-elementary"><span class="st-long-text">Elementary</span><span class="st-short-text">ELEM</span></li>
+                <li class="list-inline-item" id="st-12U"><span class="st-long-text">12 & Under</span><span class="st-short-text">12U</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Standings -->
+    <div class="row">
+        <div id="st-standings-container" class="col-md-6">
 
             <!-- Competitive Filters -->
-            <div id="st-competitive-filters">
-                <input type="checkbox" id="st-competitive" name="st-competitive">
-                <label for="st-competitive">Competitive</label>
-                <input type="checkbox" id="st-non-competitive" name="st-competitive">
-                <label for="st-non-competitive">Non-Competitive</label>
+            <div id="st-competitive-filters" class="row justify-content-between">
+                <div class="st-checkbox-group col-xs-auto">
+                    <input type="checkbox" id="st-competitive" name="st-competitive"/>
+                    <label for="st-competitive">Competitive</label>
+                </div>
+                <div class="st-checkbox-group col-xs-auto">
+                    <input type="checkbox" id="st-non-competitive" name="st-competitive">
+                    <label for="st-non-competitive">Non-Competitive</label>
+                </div>
             </div>
 
             <table id="st-standings-table">
                 <tr>
                     <th>Rank</th>
-                    <th>Team</th>
+                    <th class="team-column">Team</th>
                     <th>Won</th>
                     <th>Lost</th>
                     <th>Tied</th>
                 </tr>
                 <tr>
                     <td>1</td>
-                    <td>Sharks</td>
+                    <td class="team-column">Sharks</td>
                     <td>4</td>
                     <td>0</td>
                     <td>1</td>
                 </tr>
                 <tr>
                     <td>2</td>
-                    <td>Jets</td>
+                    <td class="team-column">Jets</td>
                     <td>3</td>
                     <td>1</td>
                     <td>1</td>
                 </tr>
                 <tr>
                     <td>3</td>
-                    <td>Cowboys</td>
+                    <td class="team-column">Cowboys</td>
                     <td>3</td>
                     <td>2</td>
                     <td>0</td>
                 </tr>
                 <tr>
                     <td>4</td>
-                    <td>Indians</td>
+                    <td class="team-column">Indians</td>
                     <td>2</td>
                     <td>3</td>
                     <td>0</td>
                 </tr>
                 <tr>
                     <td>5</td>
-                    <td>Dolphins</td>
+                    <td class="team-column">Dolphins</td>
                     <td>1</td>
                     <td>3</td>
                     <td>1</td>
                 </tr>
                 <tr>
                     <td>6</td>
-                    <td>Rascals</td>
+                    <td class="team-column">Rascals</td>
                     <td>0</td>
                     <td>4</td>
                     <td>1</td>
@@ -106,8 +121,8 @@
         </div>
 
         <!-- Standings -->
-        <div id="st-games-container" class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
-            <h3>Cowboys</h3>
+        <div id="st-games-container" class="col-md-6">
+            <h4>Cowboys</h4>
             <table id="st-games-table">
                 <tr>
                     <th>Date</th>

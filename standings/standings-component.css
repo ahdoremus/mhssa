@@ -1,0 +1,81 @@
+#st-standings-component {
+    padding: 1em;
+}
+.st-checkbox-group {
+    margin: 0 1em 0.5em 1em;
+}
+
+table#st-standings-table {
+    text-align: center;
+}
+
+table#st-standings-table .team-column {
+    text-align: left;
+}
+
+table {
+    border-spacing: 1em 0.5em;
+    border-collapse: separate;
+}
+
+.st-nav  {
+    background-color: #046387;
+    color: white;
+}
+#st-age, #st-gender {
+    padding: 0;
+}
+
+#st-standings-container label {
+    padding-left: 0.25em;
+}
+
+#st-age li, #st-gender li {
+    padding: 0 1em;
+}
+
+#st-standings-container, #st-games-container {
+    border: 2px solid #046387;
+    padding-top: .5em;
+}
+
+ul {
+    margin-bottom: 0;
+}
+
+@media(max-width: 992px) {
+    table {
+        border-spacing: 0.75em 0.5em;
+        margin-left: -15px;
+        margin-right: -15px;
+    }
+}
+
+@media(min-width: 768px) {
+    #st-games-container {
+        border-left: 0;
+    }
+
+    .st-short-text {
+        display: none;
+    }
+}
+
+@media(max-width: 768px) {
+    #st-games-container {
+        border-top: 0;
+    }
+
+    .st-long-text {
+        display: none;
+    }
+
+    #st-age li, #st-gender li {
+        padding: 0 0.5em;
+    }
+}
+
+#st-standings-component h4, #st-standings-component th {
+    /*color: #74d3f8;*/
+    color: #046387;
+}
