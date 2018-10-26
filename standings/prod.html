@@ -1,3 +1,6 @@
+<!--
+https://sharptopco.github.io/mhssa/standings/prod.html
+-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +9,8 @@
 
     <!-- page header start -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
@@ -17,13 +21,13 @@
 </head>
 <body>
 <div id="loading" style="text-align: center;">
-    <p><img src="https://sharptopco.github.io/mhssa/standings/img/spin-1.1s-200px.gif" /></p>
+    <p><img src="https://sharptopco.github.io/mhssa/standings/img/spin-1.1s-200px.gif"/></p>
     <h2>Loading...</h2>
 </div>
 <div id="standing-component-container" style="display: none"></div>
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#standing-component-container').load("https://sharptopco.github.io/mhssa/standings/standings-component.html");
     });
 </script>
