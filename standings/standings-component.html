@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MHSSA Dev</title>
+
+    <!-- page header start -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="standings-component.js"></script>
+    <!--<link href="style.css" rel="stylesheet" />-->
+    <!-- page header end -->
+
+</head>
+<body>
+
+<!-- Standings Component -->
+<div id="st-standings-component" class="container">
+
+    <!-- Gender Nav -->
+    <div id="st-gender" class="st-nav">
+        <ul>
+            <li id="st-boys">Boys</li>
+            <li id="st-girls">Girls</li>
+        </ul>
+    </div>
+
+    <div class="row">
+        <!-- Age Nav -->
+        <div id="st-age" class="st-nav col-lg-2 col-md-2 col-sm-12 col-xs-12">
+            <ul>
+                <li id="st-varsity">Varsity</li>
+                <li id="st-jv">Jr. Varsity</li>
+                <li id="st-jh">Jr. High</li>
+                <li id="st-elementary">Elementary</li>
+                <li id="st-12U">12 & Under</li>
+            </ul>
+        </div>
+
+        <!-- Standings -->
+        <div id="st-standings-container" class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+
+            <!-- Competitive Filters -->
+            <div id="st-competitive-filters">
+                <input type="checkbox" id="st-competitive" name="st-competitive">
+                <label for="st-competitive">Competitive</label>
+                <input type="checkbox" id="st-non-competitive" name="st-competitive">
+                <label for="st-non-competitive">Non-Competitive</label>
+            </div>
+
+            <table id="st-standings-table">
+                <tr>
+                    <th>Rank</th>
+                    <th>Team</th>
+                    <th>Won</th>
+                    <th>Lost</th>
+                    <th>Tied</th>
+                </tr>
+                <tr>
+                    <td>1</td>
+                    <td>Sharks</td>
+                    <td>4</td>
+                    <td>0</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Jets</td>
+                    <td>3</td>
+                    <td>1</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Cowboys</td>
+                    <td>3</td>
+                    <td>2</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Indians</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>0</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Dolphins</td>
+                    <td>1</td>
+                    <td>3</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Rascals</td>
+                    <td>0</td>
+                    <td>4</td>
+                    <td>1</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Standings -->
+        <div id="st-games-container" class="col-lg-5 col-md-5 col-sm-6 col-xs-12">
+            <h3>Cowboys</h3>
+            <table id="st-games-table">
+                <tr>
+                    <th>Date</th>
+                    <th colspan="2">Home</th>
+                    <th colspan="2">Away</th>
+                </tr>
+                <tr>
+                    <td>9/10/2018</td>
+                    <td>Cowboys</td>
+                    <td>80</td>
+                    <td>Indians</td>
+                    <td>56</td>
+                </tr>
+                <tr>
+                    <td>09/17/2018</td>
+                    <td>Dolphins</td>
+                    <td>62</td>
+                    <td>Cowboys</td>
+                    <td>74</td>
+                </tr>
+                <tr>
+                    <td>09/24/2018</td>
+                    <td>Cowboys</td>
+                    <td>70</td>
+                    <td>Jets</td>
+                    <td>71</td>
+                </tr>
+                <tr>
+                    <td>10/01/2018</td>
+                    <td>Rascals</td>
+                    <td>62</td>
+                    <td>Cowboys</td>
+                    <td>88</td>
+                </tr>
+                <tr>
+                    <td>10/08/2018</td>
+                    <td>Cowboys</td>
+                    <td>86</td>
+                    <td>Sharks</td>
+                    <td>90</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
