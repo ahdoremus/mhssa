@@ -10,6 +10,7 @@
     background: rgba(0,0,0,.5) url("img/Ripple-2s-200px.gif") center center no-repeat;
     top: 0;
     left: 0;
+    min-height: 200px;
 }
 .st-checkbox-group {
     margin: 0 1em 0.25em 1em;
@@ -91,6 +92,10 @@ ul {
 }
 
 .st-table-header {
+    font-weight: bolder;
+}
+
+.active {
     font-weight: bolder;
 }
 /*#st-standings-table :nth-child(odd){*/
