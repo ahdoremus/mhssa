@@ -15,13 +15,12 @@
     margin: 0 1em 0.25em 1em;
 }
 
-#st-standings-table .team-column {
+.st-team-column {
     text-align: left;
 }
 
-table {
-    border-spacing: 1em 0.5em;
-    border-collapse: separate;
+.st-away-score {
+    border-left: 2px solid #046387;
 }
 
 .st-nav  {
@@ -87,7 +86,7 @@ ul {
     color: #046387;
 }
 
-#st-standings-table :nth-child(even).row, #st-games-table :nth-child(even).row {
+#st-standings-table :nth-child(even).row, .st-games-table :nth-child(even).row {
     background-color: #eeeeee;
 }
 

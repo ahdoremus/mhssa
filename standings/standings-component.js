@@ -37,6 +37,7 @@ function addGameToStandings(game, standing) {
 
 async function displayGames() {
     games = await fetch('Games')
+    games.sort(compareDates)
     console.log('games: ', games)
 
     let competitiveStandings = extractStandingTemplate(games)
@@ -74,12 +75,38 @@ async function displayGames() {
                 $('#st-standings-table').append(`
                     <div class="row">
                         <div class="col-2">${i + 1}</div>
-                        <div class="col-4 team-column">${team.name}</div>
+                        <div class="col-4 st-team-column">${team.name}</div>
                         <div class="col-2">${team.won}</div>
                         <div class="col-2">${team.lost}</div>
                         <div class="col-2">${team.tied}</div>
                     </div>
                 `)
+
+                let id = team.name.replace(/\s+/g, '-').toLowerCase()
+                $('#st-games-container').append(`
+                    <h4>${team.name}</h4>
+                    <div id="st-games-table-${id}" class="st-games-table">
+                        <div class="row st-table-header">
+                            <div class="col-2">Date</div>
+                            <div class="col-5">Home</div>
+                            <div class="col-5">Away</div>
+                        </div>
+                    </div>
+                `)
+
+                games.forEach(game => {
+                    if (game.homeTeamName[0] === team.name || game.awayTeamName[0] === team.name) {
+                        $(`#st-games-table-${id}`).append(`
+                            <div class="row">
+                                <div class="col-2">${game.date.substring(5)}</div>
+                                <div class="col-4 st-team-column">${game.homeTeamName}</div>
+                                <div class="col-1">${game.homeScore}</div>
+                                <div class="col-1 st-away-score">${game.awayScore}</div>
+                                <div class="col-4 st-team-column">${game.awayTeamName}</div>
+                            </div>
+                        `)
+                    }
+                })
             })
         }
     }
@@ -111,6 +138,14 @@ function compareStandings(a, b) {
     if (a.tied < b.tied)
         return -1;
     if (a.tied > b.tied)
+        return 1;
+    return 0;
+}
+
+function compareDates(a, b) {
+    if (a.date < b.date)
+        return -1;
+    if (a.date > b.date)
         return 1;
     return 0;
 }
