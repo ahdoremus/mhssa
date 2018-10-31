@@ -15,11 +15,7 @@
     margin: 0 1em 0.25em 1em;
 }
 
-table#st-standings-table {
-    text-align: center;
-}
-
-table#st-standings-table .team-column {
+#st-standings-table .team-column {
     text-align: left;
 }
 
