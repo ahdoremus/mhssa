@@ -3,7 +3,7 @@ var games = []
 var currentGender = 'Boys'
 var currentSkillLevel = 'Varsity'
 var currentTeam = ''
-var competitive = false
+var competitive = true
 var noncompetitive = true
 var competitiveStandings
 var noncompetitiveStandings
@@ -11,10 +11,24 @@ var noncompetitiveStandings
 $(document).ready(async function () {
     games = await fetch('Games')
     games.sort(compareDates)
+    console.log('games: ', games)
+
     competitiveStandings = extractStandingTemplate(games)
     noncompetitiveStandings = extractStandingTemplate(games)
 
+    games.forEach(game => {
+        addGameToStandings(game, game.competitive ? competitiveStandings : noncompetitiveStandings);
+    })
+
     populateComponent()
+
+    $('#st-boys').click(() => switchGender("Boys"))
+    $('#st-girls').click(() => switchGender("Girls"))
+    $('#st-varsity').click(() => switchSkillLevel("Varsity"))
+    $('#st-junior-varsity').click(() => switchSkillLevel("Junior Varsity"))
+    $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
+    $('#st-elementary').click(() => switchSkillLevel("Elementary"))
+    $('#st-12u').click(() => switchSkillLevel("12U"))
     $('#st-loading').hide(2000)
 })
 
@@ -126,11 +140,6 @@ function populateComponent() {
     $('li').removeClass('active')
     $(`#st-${currentGender.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')
     $(`#st-${currentSkillLevel.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')
-    console.log('games: ', games)
-
-    games.forEach(game => {
-        addGameToStandings(game, game.competitive ? competitiveStandings : noncompetitiveStandings);
-    })
 
     displayStandings();
     displayGames();
@@ -172,4 +181,17 @@ function compareDates(a, b) {
     if (a.date > b.date)
         return 1;
     return 0;
+}
+
+
+function switchGender(gender) {
+    currentTeam = ''
+    currentGender = gender
+    populateComponent()
+}
+
+function switchSkillLevel(skillLevel) {
+    currentTeam = ''
+    currentSkillLevel = skillLevel
+    populateComponent()
 }
