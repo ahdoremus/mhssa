@@ -13,27 +13,19 @@ $(document).ready(async function () {
     games.sort(compareDates)
     console.log('games: ', games)
 
+    // create the standings objects
     competitiveStandings = extractStandingTemplate(games)
     noncompetitiveStandings = extractStandingTemplate(games)
-
     games.forEach(game => {
         addGameToStandings(game, game.competitive ? competitiveStandings : noncompetitiveStandings);
     })
 
     populateComponent()
+    addGenderSelectionHandlers();
+    addSkillLevelSelectionHandlers();
+    addCompetitiveSelectionHandlers();
+    // team selection handlers are added in the populate component method because they have to be added when the component is refreshed
 
-    $('#st-boys').click(() => switchGender("Boys"))
-    $('#st-girls').click(() => switchGender("Girls"))
-    $('#st-varsity').click(() => switchSkillLevel("Varsity"))
-    $('#st-junior-varsity').click(() => switchSkillLevel("Junior Varsity"))
-    $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
-    $('#st-elementary').click(() => switchSkillLevel("Elementary"))
-    $('#st-12u').click(() => switchSkillLevel("12U"))
-
-    $(':checkbox').change(function () {
-        window[$(this).prop('id').substring(3)] = $(this).is(':checked')
-        populateComponent()
-    });
     $('#st-loading').hide(2000)
 })
 
@@ -92,7 +84,9 @@ function displayGames() {
 
     games.forEach(game => {
         if (game.homeTeamName[0] === currentTeam || game.awayTeamName[0] === currentTeam) {
-            displayGame(game);
+            if((game.competitive && competitive) || (!game.competitive && noncompetitive)) {
+                displayGame(game);
+            }
         }
     })
 }
@@ -130,7 +124,7 @@ function displayStandings() {
         }
         // console.log(team)
         $('#st-standings-table').append(`
-            <div class="row">
+            <div class="row st-team-row" id="${team.name}">
                 <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${i + 1}</div>
                 <div class="col-4 st-team-column ${team.name === currentTeam ? 'active' : ''}">${team.name}</div>
                 <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${team.won}</div>
@@ -150,6 +144,7 @@ function populateComponent() {
 
     displayStandings();
     displayGames();
+    addTeamSelectionHandler();
 }
 
 function fetch(objectType) {
@@ -202,3 +197,31 @@ function switchSkillLevel(skillLevel) {
     currentSkillLevel = skillLevel
     populateComponent()
 }
+
+function addTeamSelectionHandler() {
+    $('.st-team-row').click(function () {
+        currentTeam = $(this).prop('id')
+        console.log(currentTeam)
+        populateComponent()
+    })
+}
+function addGenderSelectionHandlers() {
+    $('#st-boys').click(() => switchGender("Boys"))
+    $('#st-girls').click(() => switchGender("Girls"))
+}
+
+function addSkillLevelSelectionHandlers() {
+    $('#st-varsity').click(() => switchSkillLevel("Varsity"))
+    $('#st-junior-varsity').click(() => switchSkillLevel("Junior Varsity"))
+    $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
+    $('#st-elementary').click(() => switchSkillLevel("Elementary"))
+    $('#st-12u').click(() => switchSkillLevel("12U"))
+}
+
+function addCompetitiveSelectionHandlers() {
+    $(':checkbox').change(function () {
+        window[$(this).prop('id').substring(3)] = $(this).is(':checked')
+        populateComponent()
+    });
+}
+
