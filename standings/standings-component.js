@@ -29,6 +29,11 @@ $(document).ready(async function () {
     $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
     $('#st-elementary').click(() => switchSkillLevel("Elementary"))
     $('#st-12u').click(() => switchSkillLevel("12U"))
+
+    $(':checkbox').change(function () {
+        window[$(this).prop('id').substring(3)] = $(this).is(':checked')
+        populateComponent()
+    });
     $('#st-loading').hide(2000)
 })
 
@@ -137,6 +142,8 @@ function displayStandings() {
 }
 
 function populateComponent() {
+    console.log(`competitive: `, competitive)
+    console.log(`noncompetitive: `, noncompetitive)
     $('li').removeClass('active')
     $(`#st-${currentGender.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')
     $(`#st-${currentSkillLevel.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')

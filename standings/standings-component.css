@@ -28,7 +28,7 @@
     background-color: #046387;
     color: white;
 }
-#st-age, #st-gender {
+#st-skill-level, #st-gender {
     padding: 0;
 }
 
@@ -36,7 +36,7 @@
     padding-left: 0.25em;
 }
 
-#st-age li, #st-gender li {
+#st-skill-level li, #st-gender li {
     padding: 0 1em;
 }
 
@@ -77,7 +77,7 @@ ul {
         display: none;
     }
 
-    #st-age li, #st-gender li {
+    #st-skill-level li, #st-gender li {
         padding: 0 0.5em;
     }
 }
