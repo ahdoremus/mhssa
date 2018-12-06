@@ -1,13 +1,33 @@
-function init() {
-    // setTimeout(function () {
-    displayGames()
-    $('#standing-component-container').show()
-    $('#st-loading').hide(2000)
-    // }, 1000);
-}
-
 const API_URL = 'https://airtable.sharptop.io'
 var games = []
+var currentGender = 'Boys'
+var currentSkillLevel = 'Varsity'
+var currentTeam = ''
+var competitive = true
+var noncompetitive = true
+var competitiveStandings
+var noncompetitiveStandings
+
+$(document).ready(async function () {
+    games = await fetch('Games')
+    games.sort(compareDates)
+    console.log('games: ', games)
+
+    // create the standings objects
+    competitiveStandings = extractStandingTemplate(games)
+    noncompetitiveStandings = extractStandingTemplate(games)
+    games.forEach(game => {
+        addGameToStandings(game, game.competitive ? competitiveStandings : noncompetitiveStandings);
+    })
+
+    populateComponent()
+    addGenderSelectionHandlers();
+    addSkillLevelSelectionHandlers();
+    addCompetitiveSelectionHandlers();
+    // team selection handlers are added in the populate component method because they have to be added when the component is refreshed
+
+    $('#st-loading').hide(2000)
+})
 
 function extractStandingTemplate(games) {
     let standings = {}
@@ -38,81 +58,93 @@ function addGameToStandings(game, standing) {
     }
 }
 
-async function displayGames() {
-    games = await fetch('Games')
-    games.sort(compareDates)
-    console.log('games: ', games)
-
-    let competitiveStandings = extractStandingTemplate(games)
-    let noncompetitiveStandings = extractStandingTemplate(games)
-
-    games.forEach(game => {
-        addGameToStandings(game, game.competitive ? competitiveStandings : noncompetitiveStandings);
-    })
-    // console.log(`Competitive`, competitiveStandings)
-    // console.log(`Noncompetitive`, noncompetitiveStandings)
-    for (var gender in competitiveStandings) {
-        console.log(gender, competitiveStandings[gender])
-        // $('#st-standings-table').append(`<div class="row"><div class="col-11 offset-1 st-align-left"><strong>${gender}</strong></div></div>`)
-        for (var skillLevel in competitiveStandings[gender]) {
-            $('#st-standings-table').append(`
+function displayGame(game) {
+    $(`#st-games-table`).append(`
                 <div class="row">
-                    <div class="col-12"><strong>${skillLevel} - ${gender}</strong></div>
+                    <div class="col-2">${game.date.substring(5)}</div>
+                    <div class="col-4 st-team-column">${game.homeTeamName}</div>
+                    <div class="col-1">${game.homeScore}</div>
+                    <div class="col-1 st-away-score">${game.awayScore}</div>
+                    <div class="col-4 st-team-column">${game.awayTeamName}</div>
                 </div>
             `)
-            console.log(skillLevel, competitiveStandings[gender][skillLevel])
-            let list = []
-            for (var team in competitiveStandings[gender][skillLevel]) {
-                list.push({
-                    name: team,
-                    won: competitiveStandings[gender][skillLevel][team].won + noncompetitiveStandings[gender][skillLevel][team].won,
-                    lost: competitiveStandings[gender][skillLevel][team].lost + noncompetitiveStandings[gender][skillLevel][team].lost,
-                    tied: competitiveStandings[gender][skillLevel][team].tied + noncompetitiveStandings[gender][skillLevel][team].tied,
-                })
+}
+
+function displayGames() {
+    $('#st-games-container').html(`
+        <h4>${currentTeam}</h4>
+        <div id="st-games-table" class="st-games-table">
+            <div class="row st-table-header">
+                <div class="col-2">Date</div>
+                <div class="col-5">Home</div>
+                <div class="col-5">Away</div>
+            </div>
+        </div>
+    `)
+
+    games.forEach(game => {
+        if (game.homeTeamName[0] === currentTeam || game.awayTeamName[0] === currentTeam) {
+            if((game.competitive && competitive) || (!game.competitive && noncompetitive)) {
+                displayGame(game);
             }
-
-            list.sort(compareStandings)
-            let i = 1
-            list.forEach((team, i) => {
-                console.log(team)
-                $('#st-standings-table').append(`
-                    <div class="row">
-                        <div class="col-2">${i + 1}</div>
-                        <div class="col-4 st-team-column">${team.name}</div>
-                        <div class="col-2">${team.won}</div>
-                        <div class="col-2">${team.lost}</div>
-                        <div class="col-2">${team.tied}</div>
-                    </div>
-                `)
-
-                let id = team.name.replace(/\s+/g, '-').toLowerCase()
-                $('#st-games-container').append(`
-                    <h4>${team.name}</h4>
-                    <div id="st-games-table-${id}" class="st-games-table">
-                        <div class="row st-table-header">
-                            <div class="col-2">Date</div>
-                            <div class="col-5">Home</div>
-                            <div class="col-5">Away</div>
-                        </div>
-                    </div>
-                `)
-
-                games.forEach(game => {
-                    if (game.homeTeamName[0] === team.name || game.awayTeamName[0] === team.name) {
-                        $(`#st-games-table-${id}`).append(`
-                            <div class="row">
-                                <div class="col-2">${game.date.substring(5)}</div>
-                                <div class="col-4 st-team-column">${game.homeTeamName}</div>
-                                <div class="col-1">${game.homeScore}</div>
-                                <div class="col-1 st-away-score">${game.awayScore}</div>
-                                <div class="col-4 st-team-column">${game.awayTeamName}</div>
-                            </div>
-                        `)
-                    }
-                })
-            })
         }
+    })
+}
+
+function sortStandings() {
+    let list = []
+    for (var team in competitiveStandings[currentGender][currentSkillLevel]) {
+        let teamCompetitiveStandings = (competitive ? competitiveStandings[currentGender][currentSkillLevel][team] : {won: 0, lost: 0, tied: 0})
+        let teamNoncompetitiveStandings = (noncompetitive ? noncompetitiveStandings[currentGender][currentSkillLevel][team] : {won: 0, lost: 0, tied: 0})
+        list.push({
+            name: team,
+            won: teamCompetitiveStandings.won + teamNoncompetitiveStandings.won,
+            lost: teamCompetitiveStandings.lost + teamNoncompetitiveStandings.lost,
+            tied: teamCompetitiveStandings.tied + teamNoncompetitiveStandings.tied,
+        })
     }
+
+    list.sort(compareStandings)
+    return list;
+}
+
+function displayStandings() {
+    $('#st-standings-table').html(`
+        <div class="row st-table-header">
+            <div class="col-2">Rank</div>
+            <div class="col-4 st-team-column">Team</div>
+            <div class="col-2">Won</div>
+            <div class="col-2">Lost</div>
+            <div class="col-2">Tied</div>
+        </div>
+    `)
+    sortStandings().forEach((team, i) => {
+        if (currentTeam === '') {
+            currentTeam = team.name
+        }
+        // console.log(team)
+        $('#st-standings-table').append(`
+            <div class="row st-team-row" id="${team.name}">
+                <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${i + 1}</div>
+                <div class="col-4 st-team-column ${team.name === currentTeam ? 'active' : ''}">${team.name}</div>
+                <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${team.won}</div>
+                <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${team.lost}</div>
+                <div class="col-2 ${team.name === currentTeam ? 'active' : ''}">${team.tied}</div>
+            </div>
+        `)
+    })
+}
+
+function populateComponent() {
+    console.log(`competitive: `, competitive)
+    console.log(`noncompetitive: `, noncompetitive)
+    $('li').removeClass('active')
+    $(`#st-${currentGender.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')
+    $(`#st-${currentSkillLevel.replace(/\s+/g, '-').toLowerCase()}`).addClass('active')
+
+    displayStandings();
+    displayGames();
+    addTeamSelectionHandler();
 }
 
 function fetch(objectType) {
@@ -152,3 +184,44 @@ function compareDates(a, b) {
         return 1;
     return 0;
 }
+
+
+function switchGender(gender) {
+    currentTeam = ''
+    currentGender = gender
+    populateComponent()
+}
+
+function switchSkillLevel(skillLevel) {
+    currentTeam = ''
+    currentSkillLevel = skillLevel
+    populateComponent()
+}
+
+function addTeamSelectionHandler() {
+    $('.st-team-row').click(function () {
+        currentTeam = $(this).prop('id')
+        console.log(currentTeam)
+        populateComponent()
+    })
+}
+function addGenderSelectionHandlers() {
+    $('#st-boys').click(() => switchGender("Boys"))
+    $('#st-girls').click(() => switchGender("Girls"))
+}
+
+function addSkillLevelSelectionHandlers() {
+    $('#st-varsity').click(() => switchSkillLevel("Varsity"))
+    $('#st-junior-varsity').click(() => switchSkillLevel("Junior Varsity"))
+    $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
+    $('#st-elementary').click(() => switchSkillLevel("Elementary"))
+    $('#st-12u').click(() => switchSkillLevel("12U"))
+}
+
+function addCompetitiveSelectionHandlers() {
+    $(':checkbox').change(function () {
+        window[$(this).prop('id').substring(3)] = $(this).is(':checked')
+        populateComponent()
+    });
+}
+
