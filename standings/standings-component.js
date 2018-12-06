@@ -1,3 +1,9 @@
+function init() {
+    displayGames()
+    $('#standing-component-container').show()
+    $('#st-loading').hide(2000)
+}
+
 const API_URL = 'https://airtable.sharptop.io'
 var games = []
 var currentGender = 'Boys'
@@ -84,7 +90,7 @@ function displayGames() {
 
     games.forEach(game => {
         if (game.homeTeamName[0] === currentTeam || game.awayTeamName[0] === currentTeam) {
-            if((game.competitive && competitive) || (!game.competitive && noncompetitive)) {
+            if ((game.competitive && competitive) || (!game.competitive && noncompetitive)) {
                 displayGame(game);
             }
         }
@@ -94,8 +100,16 @@ function displayGames() {
 function sortStandings() {
     let list = []
     for (var team in competitiveStandings[currentGender][currentSkillLevel]) {
-        let teamCompetitiveStandings = (competitive ? competitiveStandings[currentGender][currentSkillLevel][team] : {won: 0, lost: 0, tied: 0})
-        let teamNoncompetitiveStandings = (noncompetitive ? noncompetitiveStandings[currentGender][currentSkillLevel][team] : {won: 0, lost: 0, tied: 0})
+        let teamCompetitiveStandings = (competitive ? competitiveStandings[currentGender][currentSkillLevel][team] : {
+            won: 0,
+            lost: 0,
+            tied: 0
+        })
+        let teamNoncompetitiveStandings = (noncompetitive ? noncompetitiveStandings[currentGender][currentSkillLevel][team] : {
+            won: 0,
+            lost: 0,
+            tied: 0
+        })
         list.push({
             name: team,
             won: teamCompetitiveStandings.won + teamNoncompetitiveStandings.won,
@@ -205,6 +219,7 @@ function addTeamSelectionHandler() {
         populateComponent()
     })
 }
+
 function addGenderSelectionHandlers() {
     $('#st-boys').click(() => switchGender("Boys"))
     $('#st-girls').click(() => switchGender("Girls"))
