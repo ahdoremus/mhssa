@@ -1,3 +1,5 @@
-# mhssa
+# MHSSA Standings Dashboard
 
-[Prod Example](https://sharptopco.github.io/mhssa/standings/prod.html)
+[View Standings](https://sharptopco.github.io/mhssa/standings/prod.html)
+
+[Submit a Standing](https://sharptopco.github.io/mhssa/submit/login.html)
