@@ -28,21 +28,22 @@ async function getToken(username, password) {
         }),
         success: function(result) {
             console.log(result.tokenId);
-            toggleVisibility();
+            toggleVisibility(result.submitGameUrl);
+            // window.location.replace(result.submitGameUrl);
         },
         error: function() {
-            $("#error-txt").text("Could not login. Check your username and password and try again.")
+            $("#error-txt").html("Login failed.<br> Please try again.")
+            $("#error-txt").show()
         }
     });
     return response;
 }
 
-function toggleVisibility() {
-    var loginform = document.getElementById("login-form");
-    loginform.style.display = "none";
-    var iframe = document.getElementById("airtable-form");
-    iframe.style.display = "block";
+function toggleVisibility(url) {
+    $('#form-container').hide()
+    $('#iframe-container').html('<iframe id="airtable-form" style="display: none;" class="airtable-embed airtable-dynamic-height" src=${url} frameborder="0" onmousewheel="" width="100%" height="1220" style="background: transparent; border: 1px solid #ccc;"></iframe>')
 
-    var element = iframe.contentWindow.document.getElementsByClassName("sharedFormField")[6];
-    element.style.display = "block";
+    var iframe = $('#airtable-form')
+    iframe.prop('src', url)
+    iframe.show()
 }
