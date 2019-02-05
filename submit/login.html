@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MHSSA - Submission Login</title>
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+            integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+            crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+    <script src="login.js"></script>
+</head>
+<body style="text-align: center;">
+<div id="form-container" style="display: inline-block; padding: 10px;">
+    <form id="login-form" style="text-align: left; background-color: #eeeeee; padding: 10px; border-radius: 8px;">
+        <p id="error-txt" style="display: none; max-width: 10em; color: red;"></p>
+        <input type="text" name="username" id="username" placeholder="username" style="padding-left: 0.5em; border-radius: 8px">
+        <br><br>
+        <input type="password" name="password" id="password" placeholder="password" style="padding-left: 0.5em; border-radius: 8px">
+        <br><br>
+        <div id="button-container" style="text-align: right;">
+            <input type="button" value="Login" onclick="getToken($('#username').val(), $('#password').val())" style="border-radius: 8px">
+        </div>
+    </form>
+</div>
+
+<div id="iframe-container"></div>
+</body>
+</html>
