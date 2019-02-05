@@ -2,4 +2,4 @@
 
 [View Standings](https://sharptopco.github.io/mhssa/standings/prod.html)
 
-[Submit a Standing](https://sharptopco.github.io/mhssa/submit/login.html)
+[Submit a Standing](https://sharptopco.github.io/mhssa/standings/login.html)

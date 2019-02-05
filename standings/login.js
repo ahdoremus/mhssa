@@ -41,6 +41,11 @@ async function getToken(username, password) {
 
 function toggleVisibility(url) {
     $('#form-container').hide()
+    $('#st-loading').show()
+    setTimeout(() => {
+        $('#st-loading').hide()
+        $('#iframe-container').show()
+    }, 4000)
     $('#iframe-container').html('<iframe id="airtable-form" style="display: none;" class="airtable-embed airtable-dynamic-height" src=${url} frameborder="0" onmousewheel="" width="100%" height="1220" style="background: transparent; border: 1px solid #ccc;"></iframe>')
 
     var iframe = $('#airtable-form')
