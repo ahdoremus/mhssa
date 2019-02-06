@@ -6,4 +6,32 @@
     top: 0;
     left: 0;
     min-height: 200px;
+    text-align: center;
+    display: none;
+}
+
+#form-container {
+    display: inline-block;
+    padding: 10px;
+}
+
+#login-form {
+    text-align: left;
+    background-color: #eeeeee;
+    padding: 10px;
+    border-radius: 8px;
+}
+
+#error-txt {
+    display: none;
+    max-width: 10em;
+    color: red;
+}
+
+.input {
+    border-radius: 8px
+}
+
+.textField {
+    padding-left: 0.5em;
 }

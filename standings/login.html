@@ -21,19 +21,19 @@
     <link rel="stylesheet" href="login.css" />
 </head>
 <body style="text-align: center;">
-<div id="form-container" style="display: inline-block; padding: 10px;">
-    <form id="login-form" style="text-align: left; background-color: #eeeeee; padding: 10px; border-radius: 8px;">
-        <p id="error-txt" style="display: none; max-width: 10em; color: red;"></p>
-        <input type="text" name="username" id="username" placeholder="username" style="padding-left: 0.5em; border-radius: 8px">
+<div id="form-container" >
+    <form id="login-form">
+        <p id="error-txt"></p>
+        <input class="input textField" type="text" name="username" id="username" placeholder="username">
         <br><br>
-        <input type="password" name="password" id="password" placeholder="password" style="padding-left: 0.5em; border-radius: 8px">
+        <input class="input textField" type="password" name="password" id="password" placeholder="password" >
         <br><br>
         <div id="button-container" style="text-align: right;">
-            <input type="button" value="Login" onclick="getToken($('#username').val(), $('#password').val())" style="border-radius: 8px">
+            <input class="input" type="button" value="Login" onclick="getToken($('#username').val(), $('#password').val())">
         </div>
     </form>
 </div>
-<div id="st-loading" style="text-align: center; display: none">
+<div id="st-loading">
     <h2>Loading...</h2>
 </div>
 

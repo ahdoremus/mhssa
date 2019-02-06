@@ -1,20 +1,3 @@
-// async function getToken(username, password) {
-//     response = await $.ajax({
-//         type: 'POST',
-//         url: "https://airtable.sharptop.io",
-//         dataType: 'json',
-//         data: JSON.stringify({
-//             'baseId': 'appNtmri6lpYTOimo',
-//             'action': 'login',
-//             'username': username,
-//             'password': password
-//         })
-//
-//     });
-//     console.log(response.tokenId);
-//     return response;
-// }
-
 async function getToken(username, password) {
     response = await $.ajax({
         type: 'POST',
@@ -29,7 +12,6 @@ async function getToken(username, password) {
         success: function(result) {
             console.log(result.tokenId);
             toggleVisibility(result.submitGameUrl);
-            // window.location.replace(result.submitGameUrl);
         },
         error: function() {
             $("#error-txt").html("Login failed.<br> Please try again.")
