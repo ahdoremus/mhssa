@@ -231,6 +231,7 @@ function addSkillLevelSelectionHandlers() {
     $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
     $('#st-elementary').click(() => switchSkillLevel("Elementary"))
     $('#st-12u').click(() => switchSkillLevel("12U"))
+    $('#st-12u2').click(() => switchSkillLevel("12U2"))
 }
 
 function addCompetitiveSelectionHandlers() {
