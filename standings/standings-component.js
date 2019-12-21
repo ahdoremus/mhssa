@@ -226,11 +226,11 @@ function addGenderSelectionHandlers() {
 }
 
 function addSkillLevelSelectionHandlers() {
-    $('#st-varsity').click(() => switchSkillLevel("Varsity"))
-    $('#st-junior-varsity').click(() => switchSkillLevel("Junior Varsity"))
-    $('#st-junior-high').click(() => switchSkillLevel("Junior High"))
-    $('#st-elementary').click(() => switchSkillLevel("Elementary"))
-    $('#st-12u').click(() => switchSkillLevel("12U"))
+    $('#st-varsity').click(() => switchSkillLevel("18u"))
+    $('#st-junior-varsity').click(() => switchSkillLevel("16u"))
+    $('#st-junior-high').click(() => switchSkillLevel("14u"))
+    $('#st-elementary').click(() => switchSkillLevel("10u"))
+    $('#st-12u').click(() => switchSkillLevel("12u"))
 }
 
 function addCompetitiveSelectionHandlers() {
